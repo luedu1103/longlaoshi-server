@@ -39,13 +39,21 @@ fn google_keep_desktop_api(_platform: &str, _current_version: &str, msg: Option<
 
 #[get("/chat_with_ai?<msg>")]
 fn open_ai_chat(state: &State<MyState>, msg: String) -> Result<Value, Status> {
-    let string = chat_ai::chat(msg, state.secret.to_owned()).unwrap_or(Some("carajo mierda".to_string()));
+    let string = chat_ai::chat(msg, state.secret.to_owned()).unwrap_or(Some("un error parece".to_string()));
 
     Ok(json!({
         "notes": string
     }))
 }
 
+#[get("/conversation?<msg>")]
+fn open_ai_convo(state: &State<MyState>, msg: String) -> Result<Value, Status> {
+    let string = chat_ai::conversation(state.secret.to_owned(), msg).unwrap_or("un error parece".to_string());
+    // println!("{:?}", chat_ai::conversation(state.secret.to_owned(), msg));
+    Ok(json!({
+        "notes": string
+    }))
+}
 // #[launch]
 // fn rocket() -> _ {
 //     rocket::build()
@@ -68,6 +76,7 @@ async fn main(#[shuttle_runtime::Secrets] secrets: shuttle_runtime::SecretStore)
         .mount("/", routes![index])
         .mount(GPTHOLA, routes![google_keep_desktop_api])
         .mount(GPTHOLA, routes![open_ai_chat])
+        .mount("/", routes![open_ai_convo])
         .manage(state);
 
     Ok(rocket.into())
