@@ -19,13 +19,13 @@ const GPTHOLA: Origin<'static> = uri!("/long-laoshi");
 #[get("/")]
 fn index() -> Redirect {
     let msg: Option<&str> = None;
-    Redirect::to(uri!(GPTHOLA, google_keep_desktop_api("windows-x86_64", "v1.0.14", msg)))
+    Redirect::to(uri!(GPTHOLA, google_keep_desktop_api(msg)))
 }
 
 // endpoint
 // /tauri-releases/google-keep-desktop&win64&1.18.0?msg=""
-#[get("/google-keep-desktop/<_platform>/<_current_version>?<msg>")]
-fn google_keep_desktop_api(_platform: &str, _current_version: &str, msg: Option<&str>) -> Result<Value, Status> {
+#[get("/longlaoshi?<msg>")]
+fn google_keep_desktop_api(msg: Option<&str>) -> Result<Value, Status> {
     // Status::NoContent
     if let Some(msg) = msg {
         println!("{msg}");
