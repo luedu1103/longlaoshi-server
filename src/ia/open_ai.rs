@@ -5,11 +5,9 @@ pub mod chat_ai {
     use openai_api_rs::v1::common::GPT3_5_TURBO;
     use dotenv::dotenv;
 
-    use openai_api_rs::v1::assistant::{self, AssistantRequest};
     use openai_api_rs::v1::message::{CreateMessageRequest, MessageRole};
     use openai_api_rs::v1::run::CreateRunRequest;
     use openai_api_rs::v1::thread::CreateThreadRequest;
-    use std::collections::HashMap;
 
     pub fn chat(message: String, api_token: String) -> Result<Option<String>, Box<dyn std::error::Error>> {
         dotenv().ok();
@@ -36,8 +34,7 @@ pub mod chat_ai {
 
     // #[derive(Clone)]
     pub struct ChatSession {
-        pub client: Client,
-        pub assistant_id: String,
+        _client: Client,
         pub thread_id: String,
         // pub message: String,
     }
@@ -46,31 +43,13 @@ pub mod chat_ai {
         pub fn create_conversation(api_token: String) -> Result<Self, Box<dyn std::error::Error>> {
             let client = Client::new(api_token);
 
-            // let mut tools = HashMap::new();
-            // tools.insert("type".to_string(), "code_interpreter".to_string());
-
-            // let req = AssistantRequest::new(GPT3_5_TURBO.to_string());
-            // let req = req
-            //     .clone()
-            //     .description("Eres un maestro de chino y japonés que se llama Ryu o Longlao".to_string());
-            // let req = req.clone().instructions("Eres un maestro de chino y japonés, responde en el idioma en que se te pida. Siempre intenta guiar al usuario. Limitate a solo enseñar los idiomas, no respondas cualquier otra pregunta que no tenga que ver con el japonés o el chino".to_string());
-            // let req = req.clone().tools(vec![tools]);
-            // println!("{:?}", req);
-
-            // let result = client.create_assistant(req)?;
-            // let assistant_id = result.id.clone();
-            let assistant_id = "asst_5ZnQc8xosZKqiqgUMwqu8UQd".to_string();
-            // println!("{:?}", result.id);
-
             let thread_req = CreateThreadRequest::new();
             let thread_result = client.create_thread(thread_req)?;
             // println!("{:?}", thread_result.id.clone());
 
             Ok(ChatSession {
-                client: client,
-                assistant_id : assistant_id,
+                _client: client,
                 thread_id : thread_result.id.clone(),
-                // message: string
             })
         }
 

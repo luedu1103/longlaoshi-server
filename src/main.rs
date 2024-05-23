@@ -9,6 +9,7 @@ use crate::ia::open_ai::chat_ai;
 
 struct MyState {
     secret: String,
+    assistant_id: String,
 }
 
 #[macro_use]
@@ -23,7 +24,6 @@ fn index() -> Redirect {
 }
 
 // endpoint
-// /tauri-releases/google-keep-desktop&win64&1.18.0?msg=""
 #[get("/longlaoshi?<msg>")]
 fn longlaoshi_main_page(msg: Option<&str>) -> Result<Value, Status> {
     // Status::NoContent
@@ -49,39 +49,26 @@ fn open_ai_chat(state: &State<MyState>, msg: String) -> Result<Value, Status> {
 #[get("/create-conversation")]
 fn open_ai_create_conversation(state: &State<MyState>) -> Result<Value, Status> {
     let chat_session = chat_ai::ChatSession::create_conversation(state.secret.to_owned()).unwrap();
-    // println!("{:?}", chat_ai::conversation(state.secret.to_owned(), msg));
     Ok(json!({
-        "id": chat_session.assistant_id,
         "thread": chat_session.thread_id,
         "message": "its working",
     }))
 }
 
-#[get("/chat-with-your-own-assistant/<id>/<thread>?<msg>")]
-fn open_ai_chat_with_your_assistant(id: String, thread: String, msg: String, state: &State<MyState>) -> Result<Value, Status> {
-    let response = chat_ai::talk(id, thread, msg, state.secret.to_owned()).unwrap();
+#[get("/chat-with-your-own-assistant/<thread>?<msg>")]
+fn open_ai_chat_with_your_assistant(thread: String, msg: String, state: &State<MyState>) -> Result<Value, Status> {
+    let response = chat_ai::talk(state.assistant_id.to_owned() ,thread, msg, state.secret.to_owned()).unwrap();
     Ok(json!({
         "response": response
     }))
 }
 
-// #[launch]
-// fn rocket() -> _ {
-//     rocket::build()
-//         .mount("/", routes![index])
-//         .mount(GPTHOLA, routes![google_keep_desktop_api])
-//         .mount(GPTHOLA, routes![open_ai_chat])
-//         .configure(rocket::Config {
-//             port: 8000,
-//             ..Default::default()
-//         })
-// }
-
 #[shuttle_runtime::main]
 async fn main(#[shuttle_runtime::Secrets] secrets: shuttle_runtime::SecretStore) -> shuttle_rocket::ShuttleRocket {
 
     let secret = secrets.get("OPENAI_API_KEY").unwrap();
-    let state = MyState { secret };
+    let assistant_id = secrets.get("ASSISTANT_ID").unwrap();
+    let state = MyState { secret, assistant_id };
 
     let rocket = rocket::build()
         .mount("/", routes![index])
