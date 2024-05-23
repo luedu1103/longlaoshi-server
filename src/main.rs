@@ -57,7 +57,7 @@ fn open_ai_create_conversation(state: &State<MyState>) -> Result<Value, Status> 
     }))
 }
 
-#[get("/chat-with-your-own-assistant/<id>/<thread>/<msg>")]
+#[get("/chat-with-your-own-assistant/<id>/<thread>?<msg>")]
 fn open_ai_chat_with_your_assistant(id: String, thread: String, msg: String, state: &State<MyState>) -> Result<Value, Status> {
     let response = chat_ai::talk(id, thread, msg, state.secret.to_owned()).unwrap();
     Ok(json!({
