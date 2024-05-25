@@ -1,16 +1,14 @@
 
-pub mod chat_ai {
+// pub mod chat_ai {
     use openai_api_rs::v1::api::Client;
     use openai_api_rs::v1::chat_completion::{self, ChatCompletionRequest};
     use openai_api_rs::v1::common::GPT3_5_TURBO;
-    use dotenv::dotenv;
 
     use openai_api_rs::v1::message::{CreateMessageRequest, MessageRole};
     use openai_api_rs::v1::run::CreateRunRequest;
     use openai_api_rs::v1::thread::CreateThreadRequest;
 
     pub fn chat(message: String, api_token: String) -> Result<Option<String>, Box<dyn std::error::Error>> {
-        dotenv().ok();
         let client = Client::new(api_token);
 
         println!("{}", &message);
@@ -98,4 +96,4 @@ pub mod chat_ai {
 
         Ok(string)
     }
-}
+// }

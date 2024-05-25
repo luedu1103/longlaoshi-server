@@ -6,8 +6,8 @@
     <title>Hola</title>
 </head>
 <body>
-    <h1>POST Request Example</h1>
-    <button id="postButton">Send POST Request</button>
+    <h1>Testing para el servidor</h1>
+    <button id="postButton">Boton xddd</button>
     <pre id="responseOutput"></pre>
 
     <script src="index.js"></script>
