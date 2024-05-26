@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;   
+    background: url('img/japanese_cherry_blossom.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+}
+
+.container {
+    text-align: center;
+    padding: 55px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 100px;
+    margin: 40px;
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 0.2em;
+}
+
+header h2 {
+    font-size: 1.5em;
+    margin-bottom: 1em;
+}
+
+.info {
+    text-align: left;
+    display: inline-block;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.info p, .info ul {
+    font-size: 1.2em;
+    margin: 20px 0;
+}
+
+.info ul {
+    padding-left: 20px;
+}
+
+.info li {
+    margin: 10px 0;
+}
+
+button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #ff3300;
+}
