@@ -3,13 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hola</title>
+    <title>龙师 / 龍先生</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="img/logo.png">
 </head>
 <body>
-    <h1>Testing para el servidor</h1>
-    <button id="postButton">Boton xddd</button>
-    <pre id="responseOutput"></pre>
-
+    <div class="container">
+        <header>
+            <h1>龙师 / 龍先生</h1>
+            <h2>Aprende chino y japonés</h2>
+        </header>
+        <main>
+            <section class="info">
+                <p><strong>龙师 / 龍先生 (Profesor Dragón)</strong> es una aplicación móvil diseñada para facilitar el aprendizaje de los idiomas chino y japonés. Utilizamos técnicas de enseñanza avanzadas como el input comprensible y la repetición mediante tarjetas de memoria para asegurar un aprendizaje efectivo y eficiente.</p>
+                <p>Nuestras características destacadas incluyen:</p>
+                <ul>
+                    <li><strong>Tarjetas de memoria:</strong> Herramientas interactivas para ayudar a memorizar vocabulario.</li>
+                    <li><strong>Chat con IA:</strong> Conversaciones dinámicas para practicar el idioma en un entorno seguro.</li>
+                    <li><strong>Lecciones interactivas:</strong> Contenidos adaptativos para todos los niveles.</li>
+                    <li><strong>Recursos didácticos:</strong> Acceso a una amplia gama de materiales educativos.</li>
+                </ul>
+                <p><strong>¿Por qué elegir 龙师 / 龍先生 (Profesor Dragón)?</strong></p>
+                <p>Porque creemos en el poder del autoaprendizaje y proporcionamos todas las herramientas necesarias para que puedas dominar el chino y el japonés a tu propio ritmo. Nuestra aplicación es intuitiva, fácil de usar y está diseñada para todos, desde principiantes hasta avanzados.</p>
+            </section>
+            <br>
+            <button id="postButton">Learn More</button>
+            <pre id="responseOutput"></pre>
+        </main>
+    </div>
     <script src="index.js"></script>
 </body>
 </html>
