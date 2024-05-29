@@ -32,8 +32,16 @@ fn open_ai_create_conversation(state: &State<MyState>) -> Result<Value, Status> 
 
 #[get("/chat-with-your-own-assistant/<thread>?<msg>")]
 fn open_ai_chat_with_your_assistant(thread: String, msg: String, state: &State<MyState>) -> Result<Value, Status> {
-    let response = ia::open_ai::talk(state.assistant_id.to_owned() ,thread, msg, state.secret.to_owned()).unwrap();
-    Ok(json!({
-        "response": response
-    }))
+    println!("Received request: thread = {}, msg = {}", thread, msg);
+    match ia::open_ai::talk(state.assistant_id.to_owned(), thread, msg, state.secret.to_owned()) {
+        Ok(response) => {
+            Ok(json!({
+                "response": response
+            }))
+        }
+        Err(e) => {
+            println!("Error processing request: {:?}", e);
+            Err(Status::InternalServerError)
+        }
+    }
 }

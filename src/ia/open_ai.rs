@@ -79,21 +79,16 @@
             }
         }
 
-        let mut string = String::new();
-        let list_message_result = client.list_messages(thread_id.clone()).unwrap();
-        for data in list_message_result.data {
-            for content in data.content {
-                println!(
-                    "{:?}: {:?} {:?}",
-                    data.role, content.text.value, content.text.annotations
-                );
-                string.push_str(&content.text.value);
-                string.push_str(" ");
+        let first_message = if let Some(data) = client.list_messages(thread_id.clone())?.data.first() {
+            if let Some(content) = data.content.first() {
+                content.text.value.clone()
+            } else {
+                String::new() // If there's no content in the first message, return an empty string
             }
-        }
-
-        string = string.trim_end().to_string();
-
-        Ok(string)
+        } else {
+            String::new() // If there are no messages, return an empty string
+        };
+    
+        Ok(first_message)
     }
 // }

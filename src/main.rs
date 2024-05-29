@@ -19,16 +19,15 @@ const GPTHOLA: Origin<'static> = uri!("/longlaoshi");
 
 #[get("/")]
 fn index() -> Redirect {
-    let msg: Option<&str> = None;
-    Redirect::to(uri!(GPTHOLA, longlaoshi_main_page(msg)))
+    Redirect::to(uri!(GPTHOLA, longlaoshi_main_page()))
 }
 
 // endpoint
-#[get("/testing?<msg>")]
-fn longlaoshi_main_page(msg: Option<&str>) -> Template {
+#[get("/testing")]
+fn longlaoshi_main_page() -> Template {
     // Status::NoContent
     let mut context = HashMap::new();
-    context.insert("name", "World");
+    context.insert("hi","These are the static files c:");
     Template::render("index", &context)
 }
 
