@@ -1,8 +1,10 @@
+use rocket::fs::{FileServer, relative};
 use rocket::http::uri::Origin;
 use rocket::response::Redirect;
 
 mod ia;
-mod chat;
+mod chat_routes;
+mod install_route;
 
 pub struct MyState {
     secret: String,
@@ -31,6 +33,7 @@ fn longlaoshi_main_page() -> Template {
     Template::render("index", &context)
 }
 
+
 #[shuttle_runtime::main]
 async fn main(#[shuttle_runtime::Secrets] secrets: shuttle_runtime::SecretStore) -> shuttle_rocket::ShuttleRocket {
 
@@ -41,7 +44,9 @@ async fn main(#[shuttle_runtime::Secrets] secrets: shuttle_runtime::SecretStore)
     let rocket = rocket::build()
         .mount("/", routes![index])
         .mount(GPTHOLA, routes![longlaoshi_main_page])
-        .mount(chat::BASE, chat::routes())
+        .mount(chat_routes::BASE, chat_routes::routes())
+        .mount(install_route::BASE, install_route::routes())
+        .mount("/static", FileServer::from(relative!("static")))
         .manage(state)
         .attach(Template::fairing());
 
