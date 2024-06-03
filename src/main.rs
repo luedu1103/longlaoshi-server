@@ -1,6 +1,9 @@
 use rocket::fs::{FileServer, relative};
 use rocket::http::uri::Origin;
 use rocket::response::Redirect;
+use rocket::http::Header;
+use rocket::fairing::{Fairing, Info, Kind};
+use rocket::{Request, Response};
 
 mod ia;
 mod chat_routes;
@@ -33,6 +36,26 @@ fn longlaoshi_main_page() -> Template {
     Template::render("index", &context)
 }
 
+// CORS thing
+pub struct CORS;
+
+#[rocket::async_trait]
+impl Fairing for CORS {
+    fn info(&self) -> Info {
+        Info {
+            name: "Add CORS headers to responses",
+            kind: Kind::Response
+        }
+    }
+
+    async fn on_response<'r>(&self, _request: &'r Request<'_>, response: &mut Response<'r>) {
+        response.set_header(Header::new("Access-Control-Allow-Origin", "*"));
+        response.set_header(Header::new("Access-Control-Allow-Methods", "POST, GET, PATCH, OPTIONS"));
+        response.set_header(Header::new("Access-Control-Allow-Headers", "*"));
+        response.set_header(Header::new("Access-Control-Allow-Credentials", "true"));
+    }
+}
+
 
 #[shuttle_runtime::main]
 async fn main(#[shuttle_runtime::Secrets] secrets: shuttle_runtime::SecretStore) -> shuttle_rocket::ShuttleRocket {
@@ -48,6 +71,7 @@ async fn main(#[shuttle_runtime::Secrets] secrets: shuttle_runtime::SecretStore)
         .mount(install_route::BASE, install_route::routes())
         .mount("/static", FileServer::from(relative!("static")))
         .manage(state)
+        .attach(CORS)
         .attach(Template::fairing());
 
     Ok(rocket.into())
