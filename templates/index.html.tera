@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>龙师 / 龍先生</title>
     <link rel="stylesheet" href="/static/styles.css">
-    <link rel="icon" href="/static/img/logo.png">
+    <link rel="icon" href="/static/img/dragonlogo.png">
 </head>
 <body>
     <div class="container">
@@ -28,6 +28,7 @@
             </section>
             <br>
             <button id="postButton">Learn More</button>
+            <div id="loadingIndicator">Downloading...</div>
             <pre id="responseOutput"></pre>
         </main>
     </div>
