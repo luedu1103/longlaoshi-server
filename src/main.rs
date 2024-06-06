@@ -8,6 +8,7 @@ use rocket::{Request, Response};
 mod ia;
 mod chat_routes;
 mod install_route;
+mod voice;
 
 pub struct MyState {
     secret: String,
@@ -69,6 +70,7 @@ async fn main(#[shuttle_runtime::Secrets] secrets: shuttle_runtime::SecretStore)
         .mount(GPTHOLA, routes![longlaoshi_main_page])
         .mount(chat_routes::BASE, chat_routes::routes())
         .mount(install_route::BASE, install_route::routes())
+        .mount(voice::BASE, voice::routes())
         .mount("/static", FileServer::from(relative!("static")))
         .manage(state)
         .attach(CORS)

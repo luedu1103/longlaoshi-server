@@ -14,7 +14,7 @@ pub fn routes() -> Vec<Route> {
 
 #[get("/chat_with_ai?<msg>")]
 fn open_ai_chat(state: &State<MyState>, msg: String) -> Result<Value, Status> {
-    let string = ia::open_ai::chat(msg, state.secret.to_owned()).unwrap_or(Some("Esto es un error".to_string()));
+    let string = ia::open_ai::chat(msg, state.secret.to_owned()).unwrap_or(Some("Esto es un error xd".to_string()));
 
     Ok(json!({
         "notes": string
