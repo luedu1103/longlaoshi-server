@@ -30,13 +30,13 @@ impl<'r> Responder<'r, 'static> for FileWithHeaders {
 
 #[get("/download-apk")]
 async fn download_apk() -> Result<FileWithHeaders, Status> {
-    let file_path: PathBuf = PathBuf::from("./versions/app-release-v3.apk");
+    let file_path: PathBuf = PathBuf::from("./versions/app-release-v5.apk");
 
     match NamedFile::open(file_path).await {
         Ok(file) => {
             let headers = vec![
                 Header::new("Content-Type", "application/vnd.android.package-archive"),
-                Header::new("Content-Disposition", "attachment; filename=\"app-release-v3.apk\""),
+                Header::new("Content-Disposition", "attachment; filename=\"app-release-v5.apk\""),
             ];
             Ok(FileWithHeaders { file, headers })
         }
