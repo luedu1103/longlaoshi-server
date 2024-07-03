@@ -8,32 +8,35 @@ body {
 
 .container {
     text-align: center;
-    padding: 55px;
+    padding: 70px;
     background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 100px;
-    margin: 40px;
+    border-radius: 20px;
+    margin: 40px auto;
+    max-width: 80%;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
 }
 
 header h1 {
-    font-size: 3em;
-    margin-bottom: 0.2em;
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
 }
 
 header h2 {
-    font-size: 1.5em;
+    font-size: 1.2em;
     margin-bottom: 1em;
 }
 
 .info {
     text-align: left;
-    display: inline-block;
-    max-width: 750px;
+    display: block;
+    max-width: 90%;
     margin: 0 auto;
+    padding: 0 10px;
 }
 
 .info p, .info ul {
-    font-size: 1.2em;
-    margin: 20px 0;
+    font-size: 1.1em;
+    margin: 15px 0;
 }
 
 .info ul {
@@ -45,7 +48,7 @@ header h2 {
 }
 
 button {
-    font-size: 1.2em;
+    font-size: 1.1em;
     padding: 10px 20px;
     margin-top: 20px;
     background-color: #ff6600;
@@ -53,11 +56,13 @@ button {
     border: none;
     cursor: pointer;
     border-radius: 20px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 button:hover {
     background-color: #ff3300;
+    transform: scale(1.05);
 }
 
 #loadingIndicator {
@@ -70,4 +75,54 @@ button:hover {
     padding: 20px;
     border-radius: 20px;
     z-index: 1000;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+        margin: 15px auto;
+    }
+
+    header h1 {
+        font-size: 2em;
+    }
+
+    header h2 {
+        font-size: 1em;
+    }
+
+    .info p, .info ul {
+        font-size: 1em;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+        margin: 10px auto;
+        border-radius: 10px;
+    }
+
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    header h2 {
+        font-size: 0.9em;
+    }
+
+    .info p, .info ul {
+        font-size: 0.9em;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 6px 12px;
+    }
 }
